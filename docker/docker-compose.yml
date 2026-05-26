@@ -7,7 +7,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sgd_sqlserver
     environment:
-      SA_PASSWORD: "Admin1234!"
+      MSSQL_SA_PASSWORD: "Admin1234!"
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Express"
     ports:
@@ -47,6 +47,27 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - sgd_network
+
+  # ================================
+  # MÓDULO PHP
+  # ================================
+  php-app:
+    build:
+      context: ../src/php-app
+      dockerfile: Dockerfile
+    container_name: sgd_php
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: sgd_reportes
+      DB_USER: admin
+      DB_PASSWORD: Admin1234!
+    depends_on:
+      - postgres
     networks:
       - sgd_network
 
