@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Crear Documento";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Documento - SGD</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="header">
+        <h1>🏢 Sistema de Gestión Documental</h1>
+        <p>Módulo Principal - .NET Core 10</p>
+    </div>
+    <div class="nav-bar">
+        <a href="/">🏠 Inicio</a>
+        <a href="/Documentos">📁 Documentos</a>
+        <a href="/Documentos/Crear">➕ Nuevo Documento</a>
+    </div>
+    <div class="container-sgd">
+        <div class="card">
+            <h2>➕ Crear Nuevo Documento</h2>
+            <form method="post" action="/Documentos/Crear" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Título del documento:</label>
+                    <input type="text" name="Titulo" placeholder="Ej: Manual de Calidad ISO 9001" required />
+                </div>
+                <div class="form-group">
+                    <label>Descripción:</label>
+                    <textarea name="Descripcion" rows="3" placeholder="Descripción del documento..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Archivo:</label>
+                    <input type="file" name="archivo" accept=".pdf,.docx,.xlsx,.jpg,.png" required />
+                </div>
+                <div class="form-group">
+                    <label>Estado inicial:</label>
+                    <select name="Estado">
+                        <option value="Borrador">Borrador</option>
+                        <option value="Revision">Revisión</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">💾 Guardar Documento</button>
+                <a href="/Documentos" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

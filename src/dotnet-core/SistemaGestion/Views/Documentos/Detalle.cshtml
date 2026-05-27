@@ -1,0 +1,65 @@
+@model SistemaGestion.Models.Documento
+
+@{
+    ViewData["Title"] = "Detalle Documento";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle - SGD</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="header">
+        <h1>🏢 Sistema de Gestión Documental</h1>
+        <p>Módulo Principal - .NET Core 10</p>
+    </div>
+    <div class="nav-bar">
+        <a href="/">🏠 Inicio</a>
+        <a href="/Documentos">📁 Documentos</a>
+        <a href="/Documentos/Crear">➕ Nuevo Documento</a>
+    </div>
+    <div class="container-sgd">
+        <div class="card">
+            <h2>📄 @Model.Titulo</h2>
+            <div class="info-row">
+                <span class="info-label">Estado:</span>
+                <span class="badge badge-@Model.Estado.ToLower()">@Model.Estado</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Tipo:</span>
+                <span>@Model.TipoArchivo</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Versión:</span>
+                <span>v@Model.Version</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Descripción:</span>
+                <span>@Model.Descripcion</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Creado por:</span>
+                <span>@(Model.Creador != null ? Model.Creador.Nombre + " " + Model.Creador.Apellido : "Sistema")</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Fecha:</span>
+                <span>@Model.FechaCreacion.ToString("dd/MM/yyyy HH:mm")</span>
+            </div>
+        </div>
+        <div class="card">
+            <h2>🔄 Cambiar Estado</h2>
+            <form method="post" action="/Documentos/CambiarEstado">
+                <input type="hidden" name="id" value="@Model.IdDocumento" />
+                <button type="submit" name="estado" value="Revision" class="btn btn-warning">📋 Enviar a Revisión</button>
+                <button type="submit" name="estado" value="Aprobado" class="btn btn-success">✅ Aprobar</button>
+                <button type="submit" name="estado" value="Obsoleto" class="btn btn-danger">🗑️ Marcar Obsoleto</button>
+                <a href="/Documentos" class="btn btn-primary">← Volver</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+@model IEnumerable<SistemaGestion.Models.Documento>
+
+@{
+    ViewData["Title"] = "Sistema de Gestión Documental";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="header">
+        <h1>🏢 Sistema de Gestión Documental</h1>
+        <p>Módulo Principal - .NET Core 10</p>
+    </div>
+    <div class="nav-bar">
+        <a href="/">🏠 Inicio</a>
+        <a href="/Documentos">📁 Documentos</a>
+        <a href="/Documentos/Crear">➕ Nuevo Documento</a>
+    </div>
+    <div class="container-sgd">
+        <div class="stats">
+            <div class="stat-card">
+                <h3>@Model.Count()</h3>
+                <p>Total Documentos</p>
+            </div>
+            <div class="stat-card">
+                <h3>@Model.Count(d => d.Estado == "Aprobado")</h3>
+                <p>Aprobados</p>
+            </div>
+            <div class="stat-card">
+                <h3>.NET 10</h3>
+                <p>Módulo Activo</p>
+            </div>
+        </div>
+        <div class="card">
+            <h2>📋 Documentos Recientes</h2>
+            @if (!Model.Any())
+            {
+                <p style="color:#666; text-align:center; padding:20px;">No hay documentos. <a href="/Documentos/Crear">Crear uno nuevo</a></p>
+            }
+            else
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Versión</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var doc in Model)
+                        {
+                            <tr>
+                                <td>@doc.IdDocumento</td>
+                                <td>@doc.Titulo</td>
+                                <td>@doc.TipoArchivo</td>
+                                <td><span class="badge badge-@doc.Estado.ToLower()">@doc.Estado</span></td>
+                                <td>v@doc.Version</td>
+                                <td>@doc.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                                <td><a href="/Documentos/Detalle/@doc.IdDocumento" class="btn btn-primary">Ver</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</body>
+</html>

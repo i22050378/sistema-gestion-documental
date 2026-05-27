@@ -1,0 +1,14 @@
+{
+  "name": "node-service",
+  "version": "1.0.0",
+  "description": "Servicio de búsqueda y metadatos - SGD",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.0.0",
+    "cors": "^2.8.5"
+  }
+}
